@@ -44,7 +44,7 @@ jQuery(document).ready(function($){
 
     if (typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
         preview_sel.html('<iframe width=88 height=32></iframe>');
-        preview_sel.find('iframe').attr('src', 'http://wordefinery.com/i/metrica.htm?' + Math.random());
+        preview_sel.find('iframe').attr('src', 'http://wordefinery.com/i/metrica.htm');
         preview_sel.find('iframe').load(preview_f);
     }
 
