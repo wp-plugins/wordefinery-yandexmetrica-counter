@@ -20,7 +20,9 @@ Displays Yandex.Metrica Counter
 
 = System Requirements =
 
-* PHP 5.3 or greater
+* WordPress 3.0 or greater (tested up to 3.3.1)
+* PHP 5.2 or greater
+* Recommended PHP 5.3 or greater
 
 
 == Frequently Asked Questions ==

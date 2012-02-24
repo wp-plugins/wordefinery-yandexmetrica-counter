@@ -4,7 +4,7 @@ namespace wordefinery;
 
 final class YandexmetricaCounter {
 
-    const VERSION = '0.6.0';
+    const VERSION = '0.6.1';
     const DB = false;
     private $path = '';
     private $_is_counter = 0;
@@ -95,8 +95,8 @@ final class YandexmetricaCounter {
         $this->informer->align()->validator(function ($data) { if (!in_array($data, array('center', 'left', 'right'))) return 'center'; } );
         $this->informer->mode()->validator(function ($data) { if (!in_array($data, array('widget', 'shortcode', 'footer'))) return 'widget'; } );
         $this->store->site_id()->validator(function ($data) { if (preg_match('|[^\d]|', $data)) throw new SettingsValidateException('error', sprintf(__('Invalid Site Identifier <code>%1$s</code>'), $data)); } );
-        $this->informer->color_top()->validator(function ($data) { $data = preg_replace('|[^0-9a-fA-F]+|', '', $data); if (strlen($data)==3) $data = $data{0}.$data{0}.$data{1}.$data{1}.$data{2}.$data{2}; if (strlen($data)!=6) return 'FFFFFF';  } );
-        $this->informer->alpha_top()->validator(function ($data) { $data = preg_replace('|[^0-9a-fA-F]+|', '', $data); if (strlen($data)==1) $data = '0'.$data; if (strlen($data)!=2) return 'FF';  } );
+        $this->informer->color_top()->validator(function ($data) { $data = preg_replace('|[^0-9a-fA-F]+|', '', $data); if (strlen($data)==3) $data = $data{0}.$data{0}.$data{1}.$data{1}.$data{2}.$data{2}; if (strlen($data)!=6) return 'FFFFFF'; return $data; } );
+        $this->informer->alpha_top()->validator(function ($data) { $data = preg_replace('|[^0-9a-fA-F]+|', '', $data); if (strlen($data)==1) $data = '0'.$data; if (strlen($data)!=2) return 'FF'; return $data; } );
 
         \register_setting( $this->plugin_slug, 'wordefinery' );
 //        \add_action('wp_ajax_get_site_id', array(&$this, 'SettingsGetSiteId'));
@@ -186,7 +186,7 @@ final class YandexmetricaCounter {
 
     function Footer() {
         echo $this->Counter();
-        if ($this->informer->show) $this->Informer(1);
+        if ($this->informer->show) echo $this->Informer(1);
     }
 
     function Informer($is_align = 0) {

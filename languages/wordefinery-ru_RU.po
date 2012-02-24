@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordefinery\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-24 11:08+0600\n"
-"PO-Revision-Date: 2012-02-24 11:08+0600\n"
+"POT-Creation-Date: 2012-02-24 22:24+0600\n"
+"PO-Revision-Date: 2012-02-24 22:24+0600\n"
 "Last-Translator: Wordefinery.com <root@wordefinery.com>\n"
 "Language-Team: Wordefinery.com <root@wordefinery.com>\n"
 "MIME-Version: 1.0\n"
@@ -464,7 +464,7 @@ msgstr "Wordefinery Yandex.Metrica Counter"
 #: ../lib/YandexmetricaCounter.php:97
 #, php-format
 msgid "Invalid Site Identifier <code>%1$s</code>"
-msgstr "Неверный ID счетика <code>%1$s</code>"
+msgstr "Неверный ID счетчика <code>%1$s</code>"
 
 #: ../lib/YandexmetricaCounter.php:113
 msgid "Yandex.Metrica Counter"
