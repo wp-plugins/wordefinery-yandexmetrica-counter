@@ -33,6 +33,9 @@ Displays Yandex.Metrica Counter
 
 == Changelog ==
 
+= 0.6.1 =
+* Ported to PHP 5.2
+
 = 0.6 =
 * Testing
 
