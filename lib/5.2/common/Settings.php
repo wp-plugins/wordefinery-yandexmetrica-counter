@@ -340,7 +340,7 @@ implements ArrayAccess, Iterator, Countable {
         $key = array_shift($keys);
 
         if (!self::$registry[$key]) {
-            self::$registry[$key] = new self(\get_option($key), null, $key);
+            self::$registry[$key] = new self(get_option($key), null, $key);
             add_filter('pre_update_option_' . $key, array(self::$registry[$key], '___pre_update'));
         }
 

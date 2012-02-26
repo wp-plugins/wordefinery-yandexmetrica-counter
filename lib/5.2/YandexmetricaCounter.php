@@ -69,28 +69,28 @@ final class Wordefinery_YandexmetricaCounter {
         if (version_compare($GLOBALS['wp_version'], '2.8') < 0 && $this->informer->mode == 'widget') $this->informer->mode = 'footer';
 
         if (!$this->store->site_id) {
-            \Wordefinery::Notice($this->plugin_title, sprintf(wr___('set site identifier on <a href="%1$s">plugin settings page</a>.'), 'options-general.php?page='.$this->plugin_slug.'-settings'));
+            Wordefinery::Notice($this->plugin_title, sprintf(wr___('set site identifier on <a href="%1$s">plugin settings page</a>.'), 'options-general.php?page='.$this->plugin_slug.'-settings'));
         }
 
-        \add_action('admin_menu', array(&$this, 'AdminMenu'));
-        \add_action('admin_init', array(&$this, 'AdminInit'));
+        add_action('admin_menu', array(&$this, 'AdminMenu'));
+        add_action('admin_init', array(&$this, 'AdminInit'));
 
         if ($this->store->site_id) {
             if ($this->informer->show) {
                 switch ($this->informer->mode) {
                     case 'widget':
-                        \add_action('widgets_init', create_function('', "register_widget('Wordefinery_YandexmetricaCounterWidget');"));
+                        add_action('widgets_init', create_function('', "register_widget('Wordefinery_YandexmetricaCounterWidget');"));
                         break;
                     case 'footer':
                         break;
                     case 'shortcode':
-                        \add_shortcode( 'metricacounter', array(&$this, 'Shortcode'));
+                        add_shortcode( 'metricacounter', array(&$this, 'Shortcode'));
                         break;
                 }
             }
-            \add_action('wp_footer', array(&$this, 'Footer'));
-            \add_filter('wp_nav_menu', array(&$this, 'Counter'));
-            \add_filter('wp_page_menu', array(&$this, 'Counter'));
+            add_action('wp_footer', array(&$this, 'Footer'));
+            add_filter('wp_nav_menu', array(&$this, 'Counter'));
+            add_filter('wp_page_menu', array(&$this, 'Counter'));
         }
     }
 
@@ -103,17 +103,17 @@ final class Wordefinery_YandexmetricaCounter {
         $this->informer->color_top()->validator(create_function ('$data', "\$data = preg_replace('|[^0-9a-fA-F]+|', '', \$data); if (strlen(\$data)==3) \$data = \$data{0}.\$data{0}.\$data{1}.\$data{1}.\$data{2}.\$data{2}; if (strlen(\$data)!=6) return 'FFFFFF'; return \$data;") );
         $this->informer->alpha_top()->validator(create_function ('$data', "\$data = preg_replace('|[^0-9a-fA-F]+|', '', \$data); if (strlen(\$data)==1) \$data = '0'.\$data; if (strlen(\$data)!=2) return 'FF'; return $data; ") );
 
-        \register_setting( $this->plugin_slug, 'wordefinery' );
-//        \add_action('wp_ajax_get_site_id', array(&$this, 'SettingsGetSiteId'));
-//        \add_action('wp_ajax_check_site_id', array(&$this, 'SettingsCheckSiteId'));
-        \wp_register_style($this->plugin_slug.'-settings', WP_PLUGIN_URL . '/' . $this->path . '/(css)/yandexmetricacounter-settings-page.css', array(), self::VERSION );
-        \wp_register_script($this->plugin_slug.'-settings', WP_PLUGIN_URL . '/' . $this->path . '/(js)/yandexmetricacounter-settings-page.js', array('jquery-ui-slider',  'jquery', 'farbtastic'), self::VERSION );
-        \wp_register_style('wordefinery-tabs', WP_PLUGIN_URL . '/' . $this->path . '/(css)/tabs.css', array());
-        \wp_register_style($this->plugin_slug.'-ui-slider', WP_PLUGIN_URL . '/' . $this->path . '/(css)/jquery-ui-1.8.17.custom.css', array());
+        register_setting( $this->plugin_slug, 'wordefinery' );
+//        add_action('wp_ajax_get_site_id', array(&$this, 'SettingsGetSiteId'));
+//        add_action('wp_ajax_check_site_id', array(&$this, 'SettingsCheckSiteId'));
+        wp_register_style($this->plugin_slug.'-settings', WP_PLUGIN_URL . '/' . $this->path . '/(css)/yandexmetricacounter-settings-page.css', array(), self::VERSION );
+        wp_register_script($this->plugin_slug.'-settings', WP_PLUGIN_URL . '/' . $this->path . '/(js)/yandexmetricacounter-settings-page.js', array('jquery-ui-slider',  'jquery', 'farbtastic'), self::VERSION );
+        wp_register_style('wordefinery-tabs', WP_PLUGIN_URL . '/' . $this->path . '/(css)/tabs.css', array());
+        wp_register_style($this->plugin_slug.'-ui-slider', WP_PLUGIN_URL . '/' . $this->path . '/(css)/jquery-ui-1.8.17.custom.css', array());
     }
 
     function AdminMenu() {
-        $page = \add_options_page(
+        $page = add_options_page(
             wr___('Settings') . ' &mdash; ' . $this->plugin_title,
             wr___('Yandex.Metrica Counter'),
             'manage_options',
@@ -124,30 +124,30 @@ final class Wordefinery_YandexmetricaCounter {
         $slug = $this->plugin_slug;
     	// wp_version < 3.3.x compat
 		// todo: do it in wp way
-        if (\version_compare($GLOBALS['wp_scripts']->registered['jquery']->ver, '1.7.1') < 0) {
-            \add_action( 'admin_print_styles-' . $page, create_function ('', "
+        if (version_compare($GLOBALS['wp_scripts']->registered['jquery']->ver, '1.7.1') < 0) {
+            add_action( 'admin_print_styles-' . $page, create_function ('', "
                 global \$concatenate_scripts;
                 \$concatenate_scripts = false;
-                \\wp_deregister_script( 'jquery' );
-                \\wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
-                \\wp_enqueue_script( 'jquery' );
-                \\wp_deregister_script( 'jquery-ui-core' );
-                \\wp_register_script( 'jquery-ui-core', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js');
-                \\wp_enqueue_script( 'jquery-ui-core' );
-                \\wp_deregister_script( 'jquery-ui-widget' );
-                \\wp_register_script( 'jquery-ui-widget', '');
-                \\wp_enqueue_script( 'jquery-ui-widget' );
-                \\wp_deregister_script( 'jquery-ui-mouse' );
-                \\wp_register_script( 'jquery-ui-mouse', '');
-                \\wp_enqueue_script( 'jquery-ui-mouse' );
-                \\wp_deregister_script( 'jquery-ui-slider' );
-                \\wp_register_script( 'jquery-ui-slider', '');
-                \\wp_enqueue_script( 'jquery-ui-slider' );
+                wp_deregister_script( 'jquery' );
+                wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+                wp_enqueue_script( 'jquery' );
+                wp_deregister_script( 'jquery-ui-core' );
+                wp_register_script( 'jquery-ui-core', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js');
+                wp_enqueue_script( 'jquery-ui-core' );
+                wp_deregister_script( 'jquery-ui-widget' );
+                wp_register_script( 'jquery-ui-widget', '');
+                wp_enqueue_script( 'jquery-ui-widget' );
+                wp_deregister_script( 'jquery-ui-mouse' );
+                wp_register_script( 'jquery-ui-mouse', '');
+                wp_enqueue_script( 'jquery-ui-mouse' );
+                wp_deregister_script( 'jquery-ui-slider' );
+                wp_register_script( 'jquery-ui-slider', '');
+                wp_enqueue_script( 'jquery-ui-slider' );
             ") );
         }
-        \add_action( 'admin_print_styles-' . $page, create_function('', "\\wp_enqueue_style('wordefinery-tabs'); \\wp_enqueue_style( 'farbtastic' ); \\wp_enqueue_style('{$slug}-ui-slider'); \\wp_enqueue_style('{$slug}-settings');") );
-        \add_action( 'admin_print_scripts-' . $page, create_function('', "\\wp_enqueue_script('{$slug}-settings');") );
-        // \add_action("load-$page", array( &$this, 'help_tabs'));
+        add_action( 'admin_print_styles-' . $page, create_function('', "wp_enqueue_style('wordefinery-tabs'); wp_enqueue_style( 'farbtastic' ); wp_enqueue_style('{$slug}-ui-slider'); wp_enqueue_style('{$slug}-settings');") );
+        add_action( 'admin_print_scripts-' . $page, create_function('', "wp_enqueue_script('{$slug}-settings');") );
+        // add_action("load-$page", array( &$this, 'help_tabs'));
     }
 
     function SettingsPage() {

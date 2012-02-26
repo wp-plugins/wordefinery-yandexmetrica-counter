@@ -11,7 +11,7 @@
                     <th scope="row"><?php wr__e('Display informer') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[informer][show]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[informer][show]" value="1" <?php \checked('1', $this->informer->show); ?> id="<?php echo $this->plugin_slug; ?>-show_informer" />
+                    <label><input type="checkbox" name="wordefinery[informer][show]" value="1" <?php checked('1', $this->informer->show); ?> id="<?php echo $this->plugin_slug; ?>-show_informer" />
                     <?php wr__e('Enable') ?></label><br/>
                     <?php wr__e('It may take some time for the informer to become active.') ?>
                     </td>
@@ -41,7 +41,7 @@
                     <h1><?php wr__e('Informer size') ?></h1>
                     <?php foreach ($this->size_idx as $i=>$s) : ?>
                     <?php list($w, $h) = explode('x', $s); ?>
-                    <label><input type="radio" name="wordefinery[informer][size]" value="<?php echo $i; ?>" <?php \checked($i, $this->informer->size); ?> >
+                    <label><input type="radio" name="wordefinery[informer][size]" value="<?php echo $i; ?>" <?php checked($i, $this->informer->size); ?> >
                     <img src="<?php echo WP_PLUGIN_URL.'/'.$this->path; ?>/(img)/<?php echo $s; ?>.png" width="<?php echo $w; ?>" height="<?php echo $h; ?>" alt="<?php echo $s; ?>" />
                     </label>
                     <?php endforeach; ?>
@@ -69,27 +69,27 @@
 
                     <div class="selector text">
                     <h1><?php wr__e('Text color') ?></h1>
-                    <label><input type="radio" name="wordefinery[informer][text]" value="0" <?php \checked(0, $this->informer->text); ?> />
+                    <label><input type="radio" name="wordefinery[informer][text]" value="0" <?php checked(0, $this->informer->text); ?> />
                     <?php wr__e('Black') ?></label>
-                    <label><input type="radio" name="wordefinery[informer][text]" value="1" <?php \checked(1, $this->informer->text); ?> />
+                    <label><input type="radio" name="wordefinery[informer][text]" value="1" <?php checked(1, $this->informer->text); ?> />
                     <?php wr__e('White') ?></label>
                     </div>
 
                     <div class="selector arrow">
                     <h1><?php wr__e('Arrow color') ?></h1>
-                    <label><input type="radio" name="wordefinery[informer][arrow]" value="0" <?php \checked(0, $this->informer->arrow); ?> />
+                    <label><input type="radio" name="wordefinery[informer][arrow]" value="0" <?php checked(0, $this->informer->arrow); ?> />
                     <?php wr__e('Gray') ?></label>
-                    <label><input type="radio" name="wordefinery[informer][arrow]" value="1" <?php \checked(1, $this->informer->arrow); ?> />
+                    <label><input type="radio" name="wordefinery[informer][arrow]" value="1" <?php checked(1, $this->informer->arrow); ?> />
                     <?php wr__e('Violet') ?></label>
                     </div>
 
                     <div class="selector info">
                     <h1><?php wr__e('Counter info') ?></h1>
-                    <label><input type="radio" name="wordefinery[informer][info]" value="pageviews" <?php \checked('pageviews', $this->informer->info); ?> />
+                    <label><input type="radio" name="wordefinery[informer][info]" value="pageviews" <?php checked('pageviews', $this->informer->info); ?> />
                     <?php wr__e('Page views') ?></label>
-                    <label><input type="radio" name="wordefinery[informer][info]" value="visits" <?php \checked('visits', $this->informer->info); ?> />
+                    <label><input type="radio" name="wordefinery[informer][info]" value="visits" <?php checked('visits', $this->informer->info); ?> />
                     <?php wr__e('Visits') ?></label>
-                    <label><input type="radio" name="wordefinery[informer][info]" value="uniques" <?php \checked('uniques', $this->informer->info); ?> />
+                    <label><input type="radio" name="wordefinery[informer][info]" value="uniques" <?php checked('uniques', $this->informer->info); ?> />
                     <?php wr__e('Visitors') ?></label>
                     </div>
 
@@ -100,9 +100,9 @@
                 <tr valign="top">
                     <th scope="row"><?php wr__e('Informer type') ?></th>
                     <td>
-                    <label><input type="radio" name="wordefinery[informer][type]" value="0" <?php \checked('0', $this->informer->type); ?> />
+                    <label><input type="radio" name="wordefinery[informer][type]" value="0" <?php checked('0', $this->informer->type); ?> />
                     <?php wr__e('Simple') ?></label><br/>
-                    <label><input type="radio" name="wordefinery[informer][type]" value="1" <?php \checked('1', $this->informer->type); ?> />
+                    <label><input type="radio" name="wordefinery[informer][type]" value="1" <?php checked('1', $this->informer->type); ?> />
                     <?php wr__e('Advanced') ?></label><br/>
                     <?php wr__e('Allows to see the information window with statistics when clicking on the informer.'); ?>
                     </td>
@@ -110,13 +110,13 @@
                 <tr valign="top">
                     <th scope="row"><?php wr__e('Mode') ?></th>
                     <td>
-                    <label><input type="radio" name="wordefinery[informer][mode]" value="widget" <?php \checked('widget', $this->informer->mode); ?> <?php echo version_compare($GLOBALS['wp_version'], '2.8') < 0 ? 'disabled':''; ?> />
+                    <label><input type="radio" name="wordefinery[informer][mode]" value="widget" <?php checked('widget', $this->informer->mode); ?> <?php echo version_compare($GLOBALS['wp_version'], '2.8') < 0 ? 'disabled':''; ?> />
                     <?php wr__e('Widget') ?></label>
                     <?php echo version_compare($GLOBALS['wp_version'], '2.8') < 0 ? '&mdash; <i><span style="color:red">' . wr___('Require WordPress 2.8 or greater') . '</span></i>': ''; ?>
                     <br/>
-                    <label><input type="radio" name="wordefinery[informer][mode]" value="footer" <?php \checked('footer', $this->informer->mode); ?> />
+                    <label><input type="radio" name="wordefinery[informer][mode]" value="footer" <?php checked('footer', $this->informer->mode); ?> />
                     <?php wr__e('Footer') ?></label><br/>
-                    <label><input type="radio" name="wordefinery[informer][mode]" value="shortcode" <?php \checked('shortcode', $this->informer->mode); ?> />
+                    <label><input type="radio" name="wordefinery[informer][mode]" value="shortcode" <?php checked('shortcode', $this->informer->mode); ?> />
                     <?php wr__e('Shortcode') ?></label> <code>[metricacounter]</code><br/>
                     <code>&lt;?php do_shortcode('[metricacounter]') ?&gt;</code> &mdash; <i><?php wr__e('Use this code in your template') ?></i><br/>
                     </td>
