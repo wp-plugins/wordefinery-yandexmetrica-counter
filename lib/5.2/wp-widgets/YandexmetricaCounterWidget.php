@@ -1,8 +1,8 @@
 <?php
 
-class Wordefinery_YandexmetricaCounterWidget extends \WP_Widget {
+class Wordefinery_YandexmetricaCounterWidget extends WP_Widget {
     function __construct() {
-        $this->plugin = \Wordefinery::Plugin('YandexmetricaCounter');
+        $this->plugin = Wordefinery::Plugin('YandexmetricaCounter');
         parent::__construct(
             'wordefinery_yandexmetricacounter_widget',
             wr___('Yandex.Metrica Counter'),

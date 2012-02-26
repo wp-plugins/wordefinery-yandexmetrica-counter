@@ -22,7 +22,7 @@
                     </th>
                     <td>
                     <input type="hidden" name="wordefinery[webvisor]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[webvisor]" value="1" <?php \checked('1', $this->store->webvisor); ?> />
+                    <label><input type="checkbox" name="wordefinery[webvisor]" value="1" <?php checked('1', $this->store->webvisor); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Visitor behavior recording and analysis'); ?>
                     [<?php wr__e('<a href="http://help.yandex.com/metrika/?id=1121994" target="_blank" title="What is WebVisor">help</a>'); ?>]
@@ -36,7 +36,7 @@
                     </th>
                     <td>
                     <input type="hidden" name="wordefinery[clickmap]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[clickmap]" value="1" <?php \checked('1', $this->store->clickmap); ?> />
+                    <label><input type="checkbox" name="wordefinery[clickmap]" value="1" <?php checked('1', $this->store->clickmap); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Statistics used to create the "Click map" report'); ?>
                     [<?php wr__e('<a href="http://help.yandex.com/metrika/?id=1122003" target="_blank" title="Click map report">help</a>'); ?>]
@@ -52,7 +52,7 @@
                     </th>
                     <td>
                     <input type="hidden" name="wordefinery[extended]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[extended]" value="1" <?php \checked('1', $this->store->extended); ?> />
+                    <label><input type="checkbox" name="wordefinery[extended]" value="1" <?php checked('1', $this->store->extended); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php printf(
                         wr___('External links [%1$s], file downloads [%2$s] and "Share" button report [%3$s]'),
@@ -66,7 +66,7 @@
                     <th scope="row"><?php wr__e('Accurate bounce rate') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[bounce]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[bounce]" value="1" <?php \checked('1', $this->store->bounce); ?> />
+                    <label><input type="checkbox" name="wordefinery[bounce]" value="1" <?php checked('1', $this->store->bounce); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Any visit where a user only views one page and spends less than 15 seconds on it will be counted as a bounce'); ?>
                     </td>
@@ -75,7 +75,7 @@
                     <th scope="row"><?php wr__e('Hash tracking') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[hashtrack]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[hashtrack]" value="1" <?php \checked('1', $this->store->hashtrack); ?> />
+                    <label><input type="checkbox" name="wordefinery[hashtrack]" value="1" <?php checked('1', $this->store->hashtrack); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Hash tracking in the browser address window; applied to AJAXed sites'); ?>
                     </td>
@@ -97,7 +97,7 @@
                     <th scope="row"><?php wr__e('Taxonomy') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[taxonomy_params]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[taxonomy_params]" value="1" <?php \checked('1', $this->store->taxonomy_params); ?> />
+                    <label><input type="checkbox" name="wordefinery[taxonomy_params]" value="1" <?php checked('1', $this->store->taxonomy_params); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Send full taxonomy (tags, categories, and custom taxonomies) of single post or page'); ?><br/>
                     </td>
@@ -106,7 +106,7 @@
                     <th scope="row"><?php wr__e('Custom field') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[custom_params]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[custom_params]" value="1" <?php \checked('1', $this->store->custom_params); ?> />
+                    <label><input type="checkbox" name="wordefinery[custom_params]" value="1" <?php checked('1', $this->store->custom_params); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Send value of <code>metrica</code> custom field'); ?><br/>
                     </td>
@@ -115,7 +115,7 @@
                     <th scope="row"><?php wr__e('Post data') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[post_params]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[post_params]" value="1" <?php \checked('1', $this->store->post_params); ?> />
+                    <label><input type="checkbox" name="wordefinery[post_params]" value="1" <?php checked('1', $this->store->post_params); ?> />
                     <?php wr__e('Enable'); ?></label><br/>
                     <?php wr__e('Send ID, type and status of single post or page'); ?>
                     </td>
@@ -124,7 +124,7 @@
                     <th scope="row"><?php wr__e('User data') ?></th>
                     <td>
                     <input type="hidden" name="wordefinery[user_params]" value="0" />
-                    <label><input type="checkbox" name="wordefinery[user_params]" value="1" <?php \checked('1', $this->store->user_params); ?> />
+                    <label><input type="checkbox" name="wordefinery[user_params]" value="1" <?php checked('1', $this->store->user_params); ?> />
                     <?php wr__e('Enable'); ?></label> <i>(<?php wr__e('disabled by default'); ?>)</i><br/>
                     <?php wr__e('Send user name, ID and role'); ?>
                     </td>

@@ -39,7 +39,7 @@ final class Wordefinery {
             self::$PHP52 = true;
         }
 
-        \load_plugin_textdomain( 'wordefinery', false, plugin_basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'languages' );
+        load_plugin_textdomain( 'wordefinery', false, plugin_basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'languages' );
         $req = dirname(__FILE__) . DIRECTORY_SEPARATOR . self::$lib_version . 'functions.php';
         if (file_exists($req)) require_once($req);
 
@@ -207,12 +207,12 @@ final class Wordefinery {
         }
 
         $config = array(
-                'host' => \DB_HOST,
-                'user' => \DB_USER,
-                'pass' => \DB_PASSWORD,
-                'name' => \DB_NAME,
-                'charset' => \DB_CHARSET,
-                'collate' => \DB_COLLATE,
+                'host' => DB_HOST,
+                'user' => DB_USER,
+                'pass' => DB_PASSWORD,
+                'name' => DB_NAME,
+                'charset' => DB_CHARSET,
+                'collate' => DB_COLLATE,
             );
 
         //todo: init db
