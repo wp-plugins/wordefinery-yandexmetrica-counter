@@ -2,7 +2,7 @@
 Contributors: wordefinery
 Donate link: http://wordefinery.com/
 Tags: yandex, metrica, metrika, counter, widget, rating, tracker
-Requires at least: 2.8
+Requires at least: 2.7
 Tested up to: 3.3.1
 Stable tag: trunc
 
@@ -20,9 +20,14 @@ Displays Yandex.Metrica Counter
 
 = System Requirements =
 
-* WordPress 2.8 or greater (tested up to 3.3.1)
+* WordPress 2.7 or greater (tested up to 3.3.1)
+* Recommended WordPress 3.0 or greater
 * PHP 5.2 or greater
 * Recommended PHP 5.3 or greater
+
+= Known Issues =
+
+* Widget disabled on WordPress 2.7 - 2.7.1
 
 
 == Frequently Asked Questions ==
@@ -32,6 +37,10 @@ Displays Yandex.Metrica Counter
 
 
 == Changelog ==
+
+= 0.6.5 =
+* Ported to WordPress 2.7 (limited functionality)
+* Fix bug with shortcode
 
 = 0.6.3 =
 * Add Gradient option

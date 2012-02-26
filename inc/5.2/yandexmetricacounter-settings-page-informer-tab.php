@@ -110,8 +110,10 @@
                 <tr valign="top">
                     <th scope="row"><?php wr__e('Mode') ?></th>
                     <td>
-                    <label><input type="radio" name="wordefinery[informer][mode]" value="widget" <?php \checked('widget', $this->informer->mode); ?> />
-                    <?php wr__e('Widget') ?></label><br/>
+                    <label><input type="radio" name="wordefinery[informer][mode]" value="widget" <?php \checked('widget', $this->informer->mode); ?> <?php echo version_compare($GLOBALS['wp_version'], '2.8') < 0 ? 'disabled':''; ?> />
+                    <?php wr__e('Widget') ?></label>
+                    <?php echo version_compare($GLOBALS['wp_version'], '2.8') < 0 ? '&mdash; <i><span style="color:red">' . wr___('Require WordPress 2.8 or greater') . '</span></i>': ''; ?>
+                    <br/>
                     <label><input type="radio" name="wordefinery[informer][mode]" value="footer" <?php \checked('footer', $this->informer->mode); ?> />
                     <?php wr__e('Footer') ?></label><br/>
                     <label><input type="radio" name="wordefinery[informer][mode]" value="shortcode" <?php \checked('shortcode', $this->informer->mode); ?> />

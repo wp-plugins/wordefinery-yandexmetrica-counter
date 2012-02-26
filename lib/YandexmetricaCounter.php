@@ -4,7 +4,7 @@ namespace wordefinery;
 
 final class YandexmetricaCounter {
 
-    const VERSION = '0.6.3';
+    const VERSION = '0.6.5';
     const DB = false;
     private $path = '';
     private $_is_counter = 0;
@@ -69,14 +69,7 @@ final class YandexmetricaCounter {
 
 
         if (!$this->store->site_id) {
-            $slug = $this->plugin_slug;
-            $title = $this->plugin_title;
-            add_action( 'admin_notices', function () use ($slug, $title) {
-                echo '<div class="updated fade"><p>';
-                echo '<b>'.$title.'</b>: ';
-                printf(__('set site identifier on <a href="%1$s">plugin settings page</a>.'), 'options-general.php?page='.$slug.'-settings');
-                echo "</p></div>\n";
-            });
+            \Wordefinery::Notice($this->plugin_title, sprintf(__('set site identifier on <a href="%1$s">plugin settings page</a>.'), 'options-general.php?page='.$this->plugin_slug.'-settings'));
         }
 
         \add_action('admin_menu', array(&$this, 'AdminMenu'));
@@ -193,8 +186,9 @@ final class YandexmetricaCounter {
         static $x = 0;
         if ($x) return;
         $x = 1;
-        echo $this->Counter();
-        if ($this->informer->show && $this->informer->mode == 'shortcode') echo $this->Informer(0);
+        $ret = $this->Counter();
+        if ($this->informer->show && $this->informer->mode == 'shortcode') $ret .= $this->Informer(0);
+        return $ret;
     }
 
     function Footer() {

@@ -2,7 +2,7 @@
 
 final class Wordefinery_YandexmetricaCounter {
 
-    const VERSION = '0.6.3';
+    const VERSION = '0.6.5';
     const DB = false;
     private $path = '';
     private $_is_counter = 0;
@@ -65,15 +65,11 @@ final class Wordefinery_YandexmetricaCounter {
         }
         $this->informer->alpha_bottom = $this->informer->alpha_top;
 
+    	// wp_version < 2.8+ compat
+        if (version_compare($GLOBALS['wp_version'], '2.8') < 0 && $this->informer->mode == 'widget') $this->informer->mode = 'footer';
+
         if (!$this->store->site_id) {
-            $slug = $this->plugin_slug;
-            $title = $this->plugin_title;
-            add_action( 'admin_notices', create_function('', "
-                echo '<div class=\"updated fade\"><p>';
-                echo '<b>{$title}</b>: ';
-                printf(wr___('set site identifier on <a href=\"%1\$s\">plugin settings page</a>.'), 'options-general.php?page={$slug}-settings');
-                echo '</p></div>';
-            "));
+            \Wordefinery::Notice($this->plugin_title, sprintf(wr___('set site identifier on <a href="%1$s">plugin settings page</a>.'), 'options-general.php?page='.$this->plugin_slug.'-settings'));
         }
 
         \add_action('admin_menu', array(&$this, 'AdminMenu'));
@@ -190,8 +186,9 @@ final class Wordefinery_YandexmetricaCounter {
         static $x = 0;
         if ($x) return;
         $x = 1;
-        echo $this->Counter();
-        if ($this->informer->show && $this->informer->mode == 'shortcode') echo $this->Informer(0);
+        $ret = $this->Counter();
+        if ($this->informer->show && $this->informer->mode == 'shortcode') $ret .= $this->Informer(0);
+        return $ret;
     }
 
     function Footer() {
@@ -211,6 +208,9 @@ final class Wordefinery_YandexmetricaCounter {
         $ret .= "<!-- /Yandex.Metrika informer -->\n";
         if ($is_align) $ret .= "</div>";
         return $ret;
+
+        // wp_version < 2.8 compat
+        __('en|metrica.lang');
     }
 
     function Counter($nav_menu = '') {

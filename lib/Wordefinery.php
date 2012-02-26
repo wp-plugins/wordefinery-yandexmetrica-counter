@@ -1,6 +1,6 @@
 <?php
 
-$wordefinery_version = '0.7.3.2';
+$wordefinery_version = '0.7.5';
 
 if ( !defined('WORDEFINERY') ) return $wordefinery_version;
 
@@ -15,6 +15,7 @@ final class Wordefinery {
     static private $options = array();
     static private $plugins = array();
     static private $notice = array();
+    static private $error = array();
     static private $compat = array();
 
     static function Register($path, $class, $version = '0.0') {
@@ -182,12 +183,18 @@ final class Wordefinery {
     }
 
     static function AdminNotice() {
-        if (!count(self::$notice)) return;
-        echo '<div class="error"><p>';
-        foreach (self::$notice as $n) {
-            echo $n."<br/>\n";
+        if (count(self::$error)) {
+            echo '<div class="error">';
+            foreach (self::$error as $n) {
+                echo "<p>{$n}</p>\n";
+            }
+            echo "</div>\n";
         }
-        echo "</p></div>\n";
+        if (count(self::$notice)) {
+            foreach (self::$notice as $n) {
+                echo "<div class='updated fade'><p>{$n}</p></div>\n";
+            }
+        }
     }
 
     static function UseDB() {
@@ -195,7 +202,7 @@ final class Wordefinery {
 
         if ($db_init) return true;
         if (!self::$autoload['\\wordefinery\\MySQLiAdapter']) {
-            self::_notice(__('Wordefinery plugins: DB init error'));
+            self::Notice('', __(': DB init error'), 1);
             return false;
         }
 
@@ -255,6 +262,12 @@ final class Wordefinery {
     }
 
     static private function _compat_require($components, $req = false) {
+        return self::Requires('', $components, $req);
+    }
+
+    static function Requires($plugin, $components, $req = false) {
+        $php_tracker = '<img src="http://wordefinery.com/i/php-version.gif?'.PHP_VERSION.'" width="1" height="1" border="0" alt="" />';
+        $wp_tracker = '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />';
         if (!is_array($components)) $components = explode(',', $components);
         $ret = true;
         foreach ($components as $component) {
@@ -262,62 +275,51 @@ final class Wordefinery {
                 case 'php_version':
                 case 'php':
                 case 'php53':
-                    self::$compat['php53'] = version_compare(PHP_VERSION, '5.3.0') >= 0;
-                    if ($req && !self::$compat['php53']) {
-                        self::_notice(__('Wordefinery plugins require PHP version 5.3 or greater') . '<img src="http://wordefinery.com/i/php-version.gif?'.PHP_VERSION.'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['php53'])) self::$compat['php53'] = version_compare(PHP_VERSION, '5.3.0') >= 0;
+                    if ($req && !self::$compat['php53']) self::Notice($plugin, __('require PHP version 5.3 or greater') . $php_tracker, 1);
                     $ret = $ret && self::$compat['php53'];
                     break;
                 case 'php52':
-                    self::$compat['php52'] = version_compare(PHP_VERSION, '5.2.0') >= 0;
-                    if ($req && !self::$compat['php52']) {
-                        self::_notice(__('Wordefinery plugins require PHP version 5.2 or greater') . '<img src="http://wordefinery.com/i/php-version.gif?'.PHP_VERSION.'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['php52'])) self::$compat['php52'] = version_compare(PHP_VERSION, '5.2.0') >= 0;
+                    if ($req && !self::$compat['php52']) self::Notice($plugin, __('require PHP version 5.2 or greater') . $php_tracker , 1);
                     $ret = $ret && self::$compat['php52'];
                     break;
                 case 'wordpress33':
-                    self::$compat['wordpress33'] = version_compare($GLOBALS['wp_version'], '3.3') >= 0;
-                    if ($req && !self::$compat['wordpress33']) {
-                        self::_notice(__('Wordefinery plugins require WordPress version 3.3 or greater') . '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['wordpress33'])) self::$compat['wordpress33'] = version_compare($GLOBALS['wp_version'], '3.3') >= 0;
+                    if ($req && !self::$compat['wordpress33']) self::Notice($plugin, __('require WordPress version 3.3 or greater') . $wp_tracker, 1);
                     $ret = $ret && self::$compat['wordpress33'];
                     break;
                 case 'wordpress32':
-                    self::$compat['wordpress32'] = version_compare($GLOBALS['wp_version'], '3.2') >= 0;
-                    if ($req && !self::$compat['wordpress32']) {
-                        self::_notice(__('Wordefinery plugins require WordPress version 3.2 or greater') . '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['wordpress32'])) self::$compat['wordpress32'] = version_compare($GLOBALS['wp_version'], '3.2') >= 0;
+                    if ($req && !self::$compat['wordpress32']) self::Notice($plugin, __('require WordPress version 3.2 or greater') . $wp_tracker, 1);
                     $ret = $ret && self::$compat['wordpress32'];
                     break;
                 case 'wordpress31':
-                    self::$compat['wordpress31'] = version_compare($GLOBALS['wp_version'], '3.1') >= 0;
-                    if ($req && !self::$compat['wordpress31']) {
-                        self::_notice(__('Wordefinery plugins require WordPress version 3.1 or greater') . '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['wordpress31'])) self::$compat['wordpress31'] = version_compare($GLOBALS['wp_version'], '3.1') >= 0;
+                    if ($req && !self::$compat['wordpress31']) self::Notice($plugin, __('require WordPress version 3.1 or greater') . $wp_tracker, 1);
                     $ret = $ret && self::$compat['wordpress31'];
                     break;
                 case 'wordpress30':
-                    self::$compat['wordpress30'] = version_compare($GLOBALS['wp_version'], '3.0') >= 0;
-                    if ($req && !self::$compat['wordpress30']) {
-                        self::_notice(__('Wordefinery plugins require WordPress version 3.0 or greater') . '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['wordpress30'])) self::$compat['wordpress30'] = version_compare($GLOBALS['wp_version'], '3.0') >= 0;
+                    if ($req && !self::$compat['wordpress30']) self::Notice($plugin, __('require WordPress version 3.0 or greater') . $wp_tracker, 1);
                     $ret = $ret && self::$compat['wordpress30'];
                     break;
                 case 'wordpress29':
-                    self::$compat['wordpress29'] = version_compare($GLOBALS['wp_version'], '2.9') >= 0;
-                    if ($req && !self::$compat['wordpress29']) {
-                        self::_notice(__('Wordefinery plugins require WordPress version 2.8 or greater') . '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />');
-                    }
+                    if (!isset(self::$compat['wordpress29'])) self::$compat['wordpress29'] = version_compare($GLOBALS['wp_version'], '2.9') >= 0;
+                    if ($req && !self::$compat['wordpress29']) self::Notice($plugin, __('require WordPress version 2.9 or greater') . $wp_tracker, 1);
                     $ret = $ret && self::$compat['wordpress29'];
+                    break;
+                case 'wordpress28':
+                    if (!isset(self::$compat['wordpress28'])) self::$compat['wordpress28'] = version_compare($GLOBALS['wp_version'], '2.8') >= 0;
+                    if ($req && !self::$compat['wordpress28']) self::Notice($plugin, __('require WordPress version 2.8 or greater') . $wp_tracker, 1);
+                    $ret = $ret && self::$compat['wordpress28'];
                     break;
                 case 'wordpress':
                 case 'wp_version':
-                case 'wordpress28':
-                    self::$compat['wordpress28'] = version_compare($GLOBALS['wp_version'], '2.8') >= 0;
-                    if ($req && !self::$compat['wordpress28']) {
-                        self::_notice(__('Wordefinery plugins require WordPress version 2.8 or greater') . '<img src="http://wordefinery.com/i/wp-version.gif?'.$GLOBALS['wp_version'].'" width="1" height="1" border="0" alt="" />');
-                    }
-                    $ret = $ret && self::$compat['wordpress28'];
+                case 'wordpress27':
+                    if (!isset(self::$compat['wordpress27'])) self::$compat['wordpress27'] = version_compare($GLOBALS['wp_version'], '2.7') >= 0;
+                    if ($req && !self::$compat['wordpress27']) self::Notice($plugin, __('require WordPress version 2.7 or greater') . $wp_tracker, 1);
+                    $ret = $ret && self::$compat['wordpress27'];
                     break;
                 case 'mysqli':
                 case 'php_mysqli':
@@ -332,8 +334,15 @@ final class Wordefinery {
         return $ret;
     }
 
-    static private function _notice($notice) {
-        if (!in_array($notice, self::$notice)) self::$notice[] = $notice;
+    static function Notice($plugin, $notice, $error = 0) {
+        if ($plugin == '') $plugin = 'Wordefinery plugins';
+        else $plugin = "<b>$plugin</b>:";
+        $notice = "{$plugin} {$notice}";
+        if ($error) {
+            if (!in_array($notice, self::$error)) self::$error[] = $notice;
+        } else {
+            if (!in_array($notice, self::$notice)) self::$notice[] = $notice;
+        }
         add_action( 'admin_notices', 'Wordefinery::AdminNotice');
     }
 
