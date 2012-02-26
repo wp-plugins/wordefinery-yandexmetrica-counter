@@ -38,6 +38,9 @@ Displays Yandex.Metrica Counter
 
 == Changelog ==
 
+= 0.6.7 =
+* Fixed PHP 5.2 warnings
+
 = 0.6.5 =
 * Ported to WordPress 2.7 (limited functionality)
 * Fix bug with shortcode
