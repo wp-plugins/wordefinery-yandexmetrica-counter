@@ -61,6 +61,12 @@
                     <div class="slider"></div>
                     </div>
 
+                    <div class="selector gradient">
+                    <h1><?php wr__e('Gradient') ?></h1>
+                    <input type="text" name="wordefinery[informer][gradient]" value="<?php echo $this->informer->gradient; ?>" id="<?php echo $this->plugin_slug; ?>-gradient" size="7" />
+                    <div class="slider"></div>
+                    </div>
+
                     <div class="selector text">
                     <h1><?php wr__e('Text color') ?></h1>
                     <label><input type="radio" name="wordefinery[informer][text]" value="0" <?php \checked(0, $this->informer->text); ?> />

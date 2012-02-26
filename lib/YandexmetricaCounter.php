@@ -4,7 +4,7 @@ namespace wordefinery;
 
 final class YandexmetricaCounter {
 
-    const VERSION = '0.6.2';
+    const VERSION = '0.6.3';
     const DB = false;
     private $path = '';
     private $_is_counter = 0;
@@ -35,6 +35,7 @@ final class YandexmetricaCounter {
                 'style'            => 0,
                 'color_top'        => 'FFFFFF',
                 'alpha_top'        => 'FF',
+                'gradient'         => '0',
                 'color_bottom'     => 'FFFFFF',
                 'alpha_bottom'     => 'FF',
                 'align'            => 'center',
@@ -52,7 +53,18 @@ final class YandexmetricaCounter {
         $this->informer = $this->store->informer();
 
         list($this->informer->width, $this->informer->height) = explode('x', $this->size_idx[$this->informer->size]);
+        if ($this->informer->gradient != 0) {
+            $r = hexdec(substr($this->informer->color_top,0,2)) + $this->informer->gradient;
+            $g = hexdec(substr($this->informer->color_top,2,2)) + $this->informer->gradient;
+            $b = hexdec(substr($this->informer->color_top,4,2)) + $this->informer->gradient;
+            $this->informer->color_bottom = sprintf('%02x%02x%02x',
+                $r>255?255:($r<0?0:$r),
+                $g>255?255:($g<0?0:$g),
+                $b>255?255:($b<0?0:$b)
+            );
+        } else {
         $this->informer->color_bottom = $this->informer->color_top;
+        }
         $this->informer->alpha_bottom = $this->informer->alpha_top;
 
 

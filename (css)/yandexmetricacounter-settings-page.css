@@ -138,3 +138,13 @@ float: left;
 width:120px;
 margin:5px 10px;
 }
+
+#wordefinery-yandexmetricacounter-settings .gradient INPUT {
+float: left;
+}
+
+#wordefinery-yandexmetricacounter-settings .gradient DIV.slider {
+float: left;
+width:120px;
+margin:5px 10px;
+}

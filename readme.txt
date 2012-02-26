@@ -33,6 +33,9 @@ Displays Yandex.Metrica Counter
 
 == Changelog ==
 
+= 0.6.3 =
+* Add Gradient option
+
 = 0.6.2 =
 * Ported to WordPress 2.8
 * Fix bug with multiple informers

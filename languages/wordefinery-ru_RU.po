@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordefinery\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 14:36+0600\n"
-"PO-Revision-Date: 2012-02-26 14:40+0600\n"
+"POT-Creation-Date: 2012-02-26 18:13+0600\n"
+"PO-Revision-Date: 2012-02-26 18:13+0600\n"
 "Last-Translator: Wordefinery.com <root@wordefinery.com>\n"
 "Language-Team: Wordefinery.com <root@wordefinery.com>\n"
 "MIME-Version: 1.0\n"
@@ -50,31 +50,31 @@ msgstr "Справа"
 
 #: ../inc/liveinternetcounter-settings-page.php:68
 #: ../inc/mailrucounter-settings-page.php:82
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:111
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:117
 msgid "Mode"
 msgstr "Режим"
 
 #: ../inc/liveinternetcounter-settings-page.php:71
 #: ../inc/mailrucounter-settings-page.php:85
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:114
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:120
 msgid "Widget"
 msgstr "Виджет"
 
 #: ../inc/liveinternetcounter-settings-page.php:73
 #: ../inc/mailrucounter-settings-page.php:87
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:116
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:122
 msgid "Footer"
 msgstr "Подвал"
 
 #: ../inc/liveinternetcounter-settings-page.php:75
 #: ../inc/mailrucounter-settings-page.php:89
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:118
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:124
 msgid "Shortcode"
 msgstr "Шорткод"
 
 #: ../inc/liveinternetcounter-settings-page.php:76
 #: ../inc/mailrucounter-settings-page.php:90
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:119
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:125
 msgid "Use this code in your template"
 msgstr "используйте этот код для вставки счетчика в вашу тему"
 
@@ -148,58 +148,62 @@ msgid "Opacity"
 msgstr "Прозрачность"
 
 #: ../inc/yandexmetricacounter-settings-page-informer-tab.php:71
+msgid "Gradient"
+msgstr "Градиент"
+
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:77
 msgid "Text color"
 msgstr "Цвет текста"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:73
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:79
 msgid "Black"
 msgstr "Черный"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:75
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:81
 msgid "White"
 msgstr "Белый"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:79
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:85
 msgid "Arrow color"
 msgstr "Цвет стрелки"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:81
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:87
 msgid "Gray"
 msgstr "Серый"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:83
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:89
 msgid "Violet"
 msgstr "Фиолетовый"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:87
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:93
 msgid "Counter info"
 msgstr "Показатель"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:89
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:95
 msgid "Page views"
 msgstr "Просмотры"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:91
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:97
 msgid "Visits"
 msgstr "Визиты"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:93
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:99
 msgid "Visitors"
 msgstr "Посетители"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:101
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:107
 msgid "Informer type"
 msgstr "Тип информера"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:104
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:110
 msgid "Simple"
 msgstr "Простой"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:106
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:112
 msgid "Advanced"
 msgstr "Расширенный"
 
-#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:107
+#: ../inc/yandexmetricacounter-settings-page-informer-tab.php:113
 msgid "Allows to see the information window with statistics when clicking on the informer."
 msgstr "Позволяет увидеть информационное окно со статистикой при клике на информер на страницах сайта."
 
@@ -372,7 +376,7 @@ msgid "Wordefinery Mail.ru Counter"
 msgstr "Wordefinery Mail.ru Counter"
 
 #: ../lib/MailruCounter.php:48
-#: ../lib/YandexmetricaCounter.php:65
+#: ../lib/YandexmetricaCounter.php:77
 #, php-format
 msgid "set site identifier on <a href=\"%1$s\">plugin settings page</a>."
 msgstr "заполните ID счетчика на <a href=\"%1$s\">странице настроек плагина</a>."
@@ -466,32 +470,32 @@ msgstr ""
 msgid "Wordefinery Yandex.Metrica Counter"
 msgstr "Wordefinery Yandex.Metrica Counter"
 
-#: ../lib/YandexmetricaCounter.php:97
+#: ../lib/YandexmetricaCounter.php:109
 #, php-format
 msgid "Invalid Site Identifier <code>%1$s</code>"
 msgstr "Неверный ID счетчика <code>%1$s</code>"
 
-#: ../lib/YandexmetricaCounter.php:113
+#: ../lib/YandexmetricaCounter.php:125
 msgid "Yandex.Metrica Counter"
 msgstr "Счетчик Яндекс.Метрики"
 
-#: ../lib/YandexmetricaCounter.php:152
+#: ../lib/YandexmetricaCounter.php:164
 msgid "Informer"
 msgstr "Информер"
 
-#: ../lib/YandexmetricaCounter.php:197
+#: ../lib/YandexmetricaCounter.php:209
 msgid "http://metrica.yandex.com/stat/"
 msgstr "http://metrika.yandex.ru/stat/"
 
-#: ../lib/YandexmetricaCounter.php:199
+#: ../lib/YandexmetricaCounter.php:211
 msgid "Yandex.Metrica"
 msgstr "Яндекс.Метрика"
 
-#: ../lib/YandexmetricaCounter.php:199
+#: ../lib/YandexmetricaCounter.php:211
 msgid "Yandex.Metrica: data for today (page views)"
 msgstr "Яндекс.Метрика: данные за сегодня (просмотры)"
 
-#: ../lib/YandexmetricaCounter.php:200
+#: ../lib/YandexmetricaCounter.php:212
 msgctxt "metrica.lang"
 msgid "en"
 msgstr "ru"
