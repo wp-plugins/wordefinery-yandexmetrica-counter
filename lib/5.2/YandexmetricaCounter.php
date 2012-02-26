@@ -2,7 +2,7 @@
 
 final class Wordefinery_YandexmetricaCounter {
 
-    const VERSION = '0.6.5';
+    const VERSION = '0.6.7';
     const DB = false;
     private $path = '';
     private $_is_counter = 0;
@@ -259,8 +259,7 @@ final class Wordefinery_YandexmetricaCounter {
                 }
 
                 if ($this->store->taxonomy_params) {
-                    $taxonomies = get_taxonomies('','names');
-                    if ($k = array_search('link_category', $taxonomies)) unset($taxonomies[$k]);
+                    $taxonomies = get_object_taxonomies($wp_the_query->post, 'names');
                     $tax = wp_get_object_terms($id, $taxonomies);
                     $taxonomy = array();
                     foreach ($tax as $t) {
