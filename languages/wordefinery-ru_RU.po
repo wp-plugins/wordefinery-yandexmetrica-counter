@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordefinery\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-24 22:24+0600\n"
-"PO-Revision-Date: 2012-02-24 22:24+0600\n"
+"POT-Creation-Date: 2012-02-26 14:36+0600\n"
+"PO-Revision-Date: 2012-02-26 14:40+0600\n"
 "Last-Translator: Wordefinery.com <root@wordefinery.com>\n"
 "Language-Team: Wordefinery.com <root@wordefinery.com>\n"
 "MIME-Version: 1.0\n"
@@ -429,32 +429,37 @@ msgstr "Счетчик с ID <code>%1$s</code> не зарегистрирова
 msgid "Site identifier <code>%1$s</code> registered to domain <code>%2$s</code>. This site domain <code>%3$s</code>."
 msgstr "Счетчик с ID <code>%1$s</code> зарегистрирован на домен <code>%2$s</code>. Домен этого сайта <code>%3$s</code>."
 
-#: ../lib/Wordefinery.php:194
+#: ../lib/Wordefinery.php:198
 msgid "Wordefinery plugins: DB init error"
 msgstr ""
 
-#: ../lib/Wordefinery.php:263
+#: ../lib/Wordefinery.php:267
 msgid "Wordefinery plugins require PHP version 5.3 or greater"
 msgstr ""
 
-#: ../lib/Wordefinery.php:270
+#: ../lib/Wordefinery.php:274
 msgid "Wordefinery plugins require PHP version 5.2 or greater"
 msgstr ""
 
-#: ../lib/Wordefinery.php:277
+#: ../lib/Wordefinery.php:281
 msgid "Wordefinery plugins require WordPress version 3.3 or greater"
 msgstr ""
 
-#: ../lib/Wordefinery.php:284
+#: ../lib/Wordefinery.php:288
 msgid "Wordefinery plugins require WordPress version 3.2 or greater"
 msgstr ""
 
-#: ../lib/Wordefinery.php:291
+#: ../lib/Wordefinery.php:295
 msgid "Wordefinery plugins require WordPress version 3.1 or greater"
 msgstr ""
 
-#: ../lib/Wordefinery.php:300
+#: ../lib/Wordefinery.php:302
 msgid "Wordefinery plugins require WordPress version 3.0 or greater"
+msgstr ""
+
+#: ../lib/Wordefinery.php:309
+#: ../lib/Wordefinery.php:318
+msgid "Wordefinery plugins require WordPress version 2.8 or greater"
 msgstr ""
 
 #: ../lib/YandexmetricaCounter.php:17
@@ -473,6 +478,23 @@ msgstr "Счетчик Яндекс.Метрики"
 #: ../lib/YandexmetricaCounter.php:152
 msgid "Informer"
 msgstr "Информер"
+
+#: ../lib/YandexmetricaCounter.php:197
+msgid "http://metrica.yandex.com/stat/"
+msgstr "http://metrika.yandex.ru/stat/"
+
+#: ../lib/YandexmetricaCounter.php:199
+msgid "Yandex.Metrica"
+msgstr "Яндекс.Метрика"
+
+#: ../lib/YandexmetricaCounter.php:199
+msgid "Yandex.Metrica: data for today (page views)"
+msgstr "Яндекс.Метрика: данные за сегодня (просмотры)"
+
+#: ../lib/YandexmetricaCounter.php:200
+msgctxt "metrica.lang"
+msgid "en"
+msgstr "ru"
 
 #: ../lib/wp-widgets/LiveinternetCounterWidget.php:10
 msgid "LiveInternet.ru Counter"

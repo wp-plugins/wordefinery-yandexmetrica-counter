@@ -34,7 +34,7 @@ jQuery(document).ready(function($){
             '_' + color_top.val() + alpha_top.val() +
             '_' + text.filter(':checked').val() +
             '_' + info.filter(':checked').val();
-        if (typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
+        if (1 || typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
             preview_sel.find('iframe').get(0).contentWindow.postMessage(img_url, 'http://wordefinery.com');
         } else {
             img_url = 'http://bs.yandex.ru/informer/' + yandexmetrica_site_id + '/' + img_url;
@@ -42,8 +42,8 @@ jQuery(document).ready(function($){
         }
     }
 
-    if (typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
-        preview_sel.html('<iframe width=88 height=32></iframe>');
+    if (1 || typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
+        preview_sel.html('<iframe width=88 height=36></iframe>');
         preview_sel.find('iframe').attr('src', 'http://wordefinery.com/i/metrica.htm');
         preview_sel.find('iframe').load(preview_f);
     }

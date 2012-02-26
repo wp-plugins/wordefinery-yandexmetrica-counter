@@ -4,7 +4,7 @@ namespace wordefinery;
 
 final class YandexmetricaCounter {
 
-    const VERSION = '0.6.1';
+    const VERSION = '0.6.2';
     const DB = false;
     private $path = '';
     private $_is_counter = 0;
@@ -181,25 +181,25 @@ final class YandexmetricaCounter {
         static $x = 0;
         if ($x) return;
         $x = 1;
-        echo $this->Counter().$this->Informer(0);
+        echo $this->Counter();
+        if ($this->informer->show && $this->informer->mode == 'shortcode') echo $this->Informer(0);
     }
 
     function Footer() {
         echo $this->Counter();
-        if ($this->informer->show) echo $this->Informer(1);
+        if ($this->informer->show && $this->informer->mode == 'footer') echo $this->Informer(1);
     }
 
     function Informer($is_align = 0) {
         $ret = '';
         if ($is_align) $ret .= "<div style='text-align:{$this->informer->align}'>";
-        $a = $this->informer->type?' onclick="try{Ya.Metrika.informer({i:this,id:' . $this->store->site_id . ',type:0,lang:\'' . (\preg_match('|ru|is', \get_locale())?'ru':'en') . '\'});return false}catch(e){}"':'';
-        $ret .= <<<END
-<!-- Yandex.Metrika informer -->
-<a href="http://metrika.yandex.ru/stat/?id={$this->store->site_id}&amp;from=informer"
-target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/{$this->store->site_id}/{$this->informer->size}_{$this->informer->arrow}_{$this->informer->color_top}{$this->informer->alpha_top}_{$this->informer->color_bottom}{$this->informer->alpha_bottom}_{$this->informer->text}_{$this->informer->info}"
-style="width:{$this->informer->width}px; height:{$this->informer->height}px; border:0;" alt="Yandex.Metrica" title="Yandex.Metrica"{$a} /></a>
-<!-- /Yandex.Metrika informer -->
-END;
+        $ret .= "<!-- Yandex.Metrika informer -->\n";
+        $ret .= "<a href=\"" . __('http://metrica.yandex.com/stat/') . "?id={$this->store->site_id}&amp;from=informer\"\n";
+        $ret .= "target=\"_blank\" rel=\"nofollow\"><img src=\"//bs.yandex.ru/informer/{$this->store->site_id}/{$this->informer->size}_{$this->informer->arrow}_{$this->informer->color_top}{$this->informer->alpha_top}_{$this->informer->color_bottom}{$this->informer->alpha_bottom}_{$this->informer->text}_{$this->informer->info}\"\n";
+        $ret .= "style=\"width:{$this->informer->width}px; height:{$this->informer->height}px; border:0;\" alt=\"" . __('Yandex.Metrica') . "\" title=\"" . __('Yandex.Metrica: data for today (page views)') . "\" ";
+        if ($this->informer->type) $ret .= "onclick=\"try{Ya.Metrika.informer({i:this,id:{$this->store->site_id},type:0,lang:'" . _x('en', 'metrica.lang') . "'});return false}catch(e){}\" ";
+        $ret .= "/></a>\n";
+        $ret .= "<!-- /Yandex.Metrika informer -->\n";
         if ($is_align) $ret .= "</div>";
         return $ret;
     }
