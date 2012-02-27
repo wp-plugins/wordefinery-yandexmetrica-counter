@@ -1,6 +1,6 @@
 <?php
 
-$wordefinery_version = '0.7.5';
+$wordefinery_version = '0.7.5.1';
 
 if ( !defined('WORDEFINERY') ) return $wordefinery_version;
 
@@ -106,7 +106,7 @@ final class Wordefinery {
             foreach (self::$registry['plugin'] as $c=>$p) {
                 if (isset($p['autoload']) && is_array($p['autoload'])) {
                     foreach ($p['autoload'] as $comp=>$ca) {
-                        if (!isset($a[$comp]) || version_compare($a[$comp][$version], $ca['version']) > 0) {
+                        if (!isset($a[$comp]) || version_compare($a[$comp][$version], $ca['version']) < 0) {
                             $a[$comp] = $ca;
                             $a[$comp]['path'] = $p['path'];
                         }

@@ -2,7 +2,7 @@
 
 return array(
     'common' => array(
-        'version' => '1.0',
+        'version' => '1.1',
         '\\wordefinery\\Exception'                      => 'common/Exception.php',
         '\\wordefinery\\Settings'                       => 'common/Settings.php',
         '\\wordefinery\\SettingsValidateException'      => 'common/SettingsValidateException.php',

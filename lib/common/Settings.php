@@ -5,7 +5,7 @@ namespace wordefinery;
 class Settings
 implements \ArrayAccess, \Iterator, \Countable {
 
-    private static $registry = array();
+    private static $___registry = array();
     private $___childs;
     private $___key;
     private $___parent;
@@ -39,39 +39,57 @@ implements \ArrayAccess, \Iterator, \Countable {
     }
 
     public function offsetSet($key, $data) {
-        if ($key === null) throw new \Exception('Settings key cannot be NULL');
+        if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (!isset($this->___childs[$key])) {
             $this->___childs[$key] = new self(null, $this, $key);
         }
-        $this->___childs[$key]->___import($data);
+        $ret = $this->___childs[$key];
+        foreach ($keys as $k) $ret = $ret[$k];
+        $ret->___import($data);
     }
 
     public function offsetGet($key) {
-        if ($key === null) throw new \Exception('Settings key cannot be NULL');
+        if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (!isset($this->___childs[$key])) {
             $this->___childs[$key] = new self(null, $this, $key);
             $this->___changed = 1;
         }
-        return $this->___childs[$key];
+        $ret = $this->___childs[$key];
+        foreach ($keys as $k) $ret = $ret[$k];
+        return $ret;
     }
 
     public function offsetExists($key) {
-        if ($key === null) throw new \Exception('Settings key cannot be NULL');
+        if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (!isset($this->___childs[$key])) return false;
-        else return $this->___childs[$key]->count()?true:false;
+        if (count($keys)) return $this->___childs[$key]->offsetExists(implode('/', $keys));
+        return $this->___childs[$key]->count()?true:false;
     }
 
     public function offsetUnset($key) {
-        if ($key === null) throw new \Exception('Settings key cannot be NULL');
+        if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (isset($this->___childs[$key])) {
+            if (count($keys)) return $this->___childs[$key]->offsetUnset(implode('/', $keys));
             if ($this->___childs[$key]->___unsettable()) {
                 unset($this->___childs[$key]);
                 $this->___changed = 1;
@@ -131,7 +149,7 @@ implements \ArrayAccess, \Iterator, \Countable {
 
 
     public function __clone() {
-        throw new \Exception('Settings cannot be clonned directly');
+        throw new Exception('Settings cannot be clonned directly');
     }
 
     public function __get($key) { if ($key == 'value' && $this->___mode == 0) return $this->___value(); else return $this[$key]->___value(); }
@@ -186,7 +204,7 @@ implements \ArrayAccess, \Iterator, \Countable {
     private function ___mode($mode) {
         if ($mode == 1) {
             if ($this->___mode == 1) return;
-            if ($this->___mode == 0 && $this->___loaded == 1) throw new \Exception('Settings ['.$this->___key().'] cannot be array');
+            if ($this->___mode == 0 && $this->___loaded == 1) throw new Exception('Settings ['.$this->___key().'] cannot be array');
             $this->___old_value = null;
             $this->___value = null;
             $this->___checked = null;
@@ -196,7 +214,7 @@ implements \ArrayAccess, \Iterator, \Countable {
             $this->___mode = 1;
         } else {
             if ($this->___mode == 0) return;
-            if ($this->___mode == 1 && $this->___loaded() == 1) throw new \Exception('Settings ['.$this->___key().'] cannot be scalar');
+            if ($this->___mode == 1 && $this->___loaded() == 1) throw new Exception('Settings ['.$this->___key().'] cannot be scalar');
             $this->___childs = null;
             $this->___changed = 1;
             $this->___mode = 0;
@@ -276,7 +294,7 @@ implements \ArrayAccess, \Iterator, \Countable {
     public function ___pre_update($newvalue, $oldvalue = null) {
         if ($this->___parent) return $oldvalue;
 
-        if (isset($newvalue['__section__'])) {
+        if (is_array($newvalue) && isset($newvalue['__section__'])) {
             $r = $newvalue['__section__'];
             unset($newvalue['__section__']);
             $this[$r] = $newvalue;
@@ -338,15 +356,15 @@ implements \ArrayAccess, \Iterator, \Countable {
 
     public static function bind($keys) {
         if (!is_array($keys)) $keys = explode('/', $keys);
-        foreach ($keys as &$k) $k = trim($k);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
         $key = array_shift($keys);
 
-        if (!self::$registry[$key]) {
-            self::$registry[$key] = new self(\get_option($key), null, $key);
-            \add_filter('pre_update_option_' . $key, array(self::$registry[$key], '___pre_update'));
+        if (!self::$___registry[$key]) {
+            self::$___registry[$key] = new self(\get_option($key), null, $key);
+            \add_filter('pre_update_option_' . $key, array(self::$___registry[$key], '___pre_update'));
         }
 
-        $ret = self::$registry[$key];
+        $ret = self::$___registry[$key];
         foreach ($keys as $k) $ret = $ret[$k];
 
         return $ret;
