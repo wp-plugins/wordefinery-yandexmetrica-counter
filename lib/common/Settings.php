@@ -70,7 +70,7 @@ implements \ArrayAccess, \Iterator, \Countable {
     }
 
     public function offsetExists($key) {
-        if ($key === null) throw new Exception('Settings key cannot be NULL');
+        if ($key === null) return false;
 
         $keys = explode('/', $key);
         foreach ($keys as $k=>$i) $keys[$k] = trim($i);
@@ -110,7 +110,7 @@ implements \ArrayAccess, \Iterator, \Countable {
         if ($this->___mode == 0) {
             return $this->___value();
         } else {
-            return $this->offsetGet(key($this->___childs));
+            if (key($this->___childs)) return $this->offsetGet(key($this->___childs));
         }
     }
 
@@ -135,7 +135,7 @@ implements \ArrayAccess, \Iterator, \Countable {
         if ($this->___mode == 0) {
             return true;
         } else {
-            return rewind($this->___childs);
+            return reset($this->___childs);
         }
     }
 
@@ -158,7 +158,7 @@ implements \ArrayAccess, \Iterator, \Countable {
     public function __isset($key) { return isset($this[$key]); }
     public function __call($key, $args) { return $this[$key]; }
 
-    public function __toString() { return $this->___value(); }
+    public function __toString() { return $this->___mode ? print_r($this->__toArray(), true) : (string) $this->___value(); }
 
     public function __toArray() {
         $data = array();
@@ -167,7 +167,7 @@ implements \ArrayAccess, \Iterator, \Countable {
             else return null;
         } else {
             foreach ($this->___childs as $key => $value) {
-                $data[$key] = $value->export();
+                $data[$key] = $value->__toArray();
             }
         }
         return $data;
