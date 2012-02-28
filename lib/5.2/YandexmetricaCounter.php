@@ -243,7 +243,7 @@ final class Wordefinery_YandexmetricaCounter {
                 $id = $wp_the_query->post->ID;
 
                 if ($this->store->post_params) {
-                    $params['id'] = $wp_the_query->post->ID;
+                    $params['id'][$wp_the_query->post->ID] = true;
                     $params['type'][$wp_the_query->post->post_type] = $wp_the_query->post->ID;
                     $params['status'][$wp_the_query->post->post_status] = $wp_the_query->post->ID;
                 }
