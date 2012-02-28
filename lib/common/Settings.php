@@ -286,8 +286,10 @@ implements \ArrayAccess, \Iterator, \Countable {
         if ($this->___changed()) {
             $option = $this->export();
             \remove_filter('pre_update_option_' . $this->___key, array($this, '___pre_update'));
+            \remove_filter('pre_option_' . $this->___key, array($this, '___pre'));
             \update_option($this->___key, $option);
             \add_filter('pre_update_option_' . $this->___key, array($this, '___pre_update'));
+            \add_filter('pre_option_' . $this->___key, array($this, '___pre'));
         }
     }
 
