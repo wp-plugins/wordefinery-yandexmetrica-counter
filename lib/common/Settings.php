@@ -163,13 +163,13 @@ implements \ArrayAccess, \Iterator, \Countable {
     public function __toArray() {
         $data = array();
         if ($this->___mode == 0) {
-            if ($data['value'] = $this->___value()) return $data['value'];
-            else return null;
+            $data = $this->___value();
         } else {
             foreach ($this->___childs as $key => $value) {
                 $data[$key] = $value->__toArray();
             }
         }
+        if (!$this->___parent && !is_array($data)) $data = array('value'=>$data);
         return $data;
     }
 
@@ -304,6 +304,12 @@ implements \ArrayAccess, \Iterator, \Countable {
         return $this->export();
     }
 
+    public function ___pre() {
+        $ret = $this->__toArray();
+        if (count($ret) == 1 && key($ret) == 'value') $ret = $ret['value'];
+        return $ret;
+    }
+
     private function ___check($data = null) {
         $this->___checked = 1;
         if (!isset($this->___validator)) return $data;
@@ -362,6 +368,7 @@ implements \ArrayAccess, \Iterator, \Countable {
         if (!self::$___registry[$key]) {
             self::$___registry[$key] = new self(\get_option($key), null, $key);
             \add_filter('pre_update_option_' . $key, array(self::$___registry[$key], '___pre_update'));
+            \add_filter('pre_option_' . $key, array(self::$___registry[$key], '___pre'));
         }
 
         $ret = self::$___registry[$key];
