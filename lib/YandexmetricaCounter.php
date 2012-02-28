@@ -29,7 +29,7 @@ final class YandexmetricaCounter {
             'goal_shortcode'   => 0,
             'test_shortcode'   => 0,
             'informer'         => array(
-                'informer'         => 1,
+                'show'             => '0',
                 'mode'             => 'widget',
                 'size'             => key($this->size_idx),
                 'style'            => 0,
