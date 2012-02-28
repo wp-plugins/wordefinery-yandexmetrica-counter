@@ -333,7 +333,6 @@ implements \ArrayAccess, \Iterator, \Countable {
     }
 
     public function validator($func = null) {
-        if (!isset($func)) return;
         if (is_array($func) && !is_callable($func)) {
             $this->___mode(1);
             foreach ($func as $k=>$f) $this[$k]->validator($f);
