@@ -3,7 +3,7 @@
 class Wordefinery_Settings
 implements ArrayAccess, Iterator, Countable {
 
-    private static $registry = array();
+    private static $___registry = array();
     private $___childs;
     private $___key;
     private $___parent;
@@ -39,37 +39,55 @@ implements ArrayAccess, Iterator, Countable {
     public function offsetSet($key, $data) {
         if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (!isset($this->___childs[$key])) {
             $this->___childs[$key] = new self(null, $this, $key);
         }
-        $this->___childs[$key]->___import($data);
+        $ret = $this->___childs[$key];
+        foreach ($keys as $k) $ret = $ret[$k];
+        $ret->___import($data);
     }
 
     public function offsetGet($key) {
         if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (!isset($this->___childs[$key])) {
             $this->___childs[$key] = new self(null, $this, $key);
             $this->___changed = 1;
         }
-        return $this->___childs[$key];
+        $ret = $this->___childs[$key];
+        foreach ($keys as $k) $ret = $ret[$k];
+        return $ret;
     }
 
     public function offsetExists($key) {
-        if ($key === null) throw new Exception('Settings key cannot be NULL');
+        if ($key === null) return false;
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (!isset($this->___childs[$key])) return false;
-        else return $this->___childs[$key]->count()?true:false;
+        if (count($keys)) return $this->___childs[$key]->offsetExists(implode('/', $keys));
+        return $this->___childs[$key]->count()?true:false;
     }
 
     public function offsetUnset($key) {
         if ($key === null) throw new Exception('Settings key cannot be NULL');
 
+        $keys = explode('/', $key);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
+        $key = array_shift($keys);
         $this->___mode(1);
         if (isset($this->___childs[$key])) {
+            if (count($keys)) return $this->___childs[$key]->offsetUnset(implode('/', $keys));
             if ($this->___childs[$key]->___unsettable()) {
                 unset($this->___childs[$key]);
                 $this->___changed = 1;
@@ -90,7 +108,7 @@ implements ArrayAccess, Iterator, Countable {
         if ($this->___mode == 0) {
             return $this->___value();
         } else {
-            return $this->offsetGet(key($this->___childs));
+            if (key($this->___childs)) return $this->offsetGet(key($this->___childs));
         }
     }
 
@@ -115,7 +133,7 @@ implements ArrayAccess, Iterator, Countable {
         if ($this->___mode == 0) {
             return true;
         } else {
-            return rewind($this->___childs);
+            return reset($this->___childs);
         }
     }
 
@@ -138,18 +156,18 @@ implements ArrayAccess, Iterator, Countable {
     public function __isset($key) { return isset($this[$key]); }
     public function __call($key, $args) { return $this[$key]; }
 
-    public function __toString() { return $this->___value(); }
+    public function __toString() { return $this->___mode ? print_r($this->__toArray(), true) : (string) $this->___value(); }
 
     public function __toArray() {
         $data = array();
         if ($this->___mode == 0) {
-            if ($data['value'] = $this->___value()) return $data['value'];
-            else return null;
+            $data = $this->___value();
         } else {
             foreach ($this->___childs as $key => $value) {
-                $data[$key] = $value->export();
+                $data[$key] = $value->__toArray();
             }
         }
+        if (!$this->___parent && !is_array($data)) $data = array('value'=>$data);
         return $data;
     }
 
@@ -266,15 +284,17 @@ implements ArrayAccess, Iterator, Countable {
         if ($this->___changed()) {
             $option = $this->export();
             remove_filter('pre_update_option_' . $this->___key, array($this, '___pre_update'));
+            remove_filter('pre_option_' . $this->___key, array($this, '___pre'));
             update_option($this->___key, $option);
             add_filter('pre_update_option_' . $this->___key, array($this, '___pre_update'));
+            add_filter('pre_option_' . $this->___key, array($this, '___pre'));
         }
     }
 
     public function ___pre_update($newvalue, $oldvalue = null) {
         if ($this->___parent) return $oldvalue;
 
-        if (isset($newvalue['__section__'])) {
+        if (is_array($newvalue) && isset($newvalue['__section__'])) {
             $r = $newvalue['__section__'];
             unset($newvalue['__section__']);
             $this[$r] = $newvalue;
@@ -282,6 +302,12 @@ implements ArrayAccess, Iterator, Countable {
             $this->___import($newvalue);
         }
         return $this->export();
+    }
+
+    public function ___pre() {
+        $ret = $this->__toArray();
+        if (count($ret) == 1 && key($ret) == 'value') $ret = $ret['value'];
+        return $ret;
     }
 
     private function ___check($data = null) {
@@ -305,7 +331,6 @@ implements ArrayAccess, Iterator, Countable {
     }
 
     public function validator($func = null) {
-        if (!isset($func)) return;
         if (is_array($func) && !is_callable($func)) {
             $this->___mode(1);
             foreach ($func as $k=>$f) $this[$k]->validator($f);
@@ -336,15 +361,16 @@ implements ArrayAccess, Iterator, Countable {
 
     public static function bind($keys) {
         if (!is_array($keys)) $keys = explode('/', $keys);
-        foreach ($keys as &$k) $k = trim($k);
+        foreach ($keys as $k=>$i) $keys[$k] = trim($i);
         $key = array_shift($keys);
 
-        if (!self::$registry[$key]) {
-            self::$registry[$key] = new self(get_option($key), null, $key);
-            add_filter('pre_update_option_' . $key, array(self::$registry[$key], '___pre_update'));
+        if (!self::$___registry[$key]) {
+            self::$___registry[$key] = new self(get_option($key), null, $key);
+            add_filter('pre_update_option_' . $key, array(self::$___registry[$key], '___pre_update'));
+            add_filter('pre_option_' . $key, array(self::$___registry[$key], '___pre'));
         }
 
-        $ret = self::$registry[$key];
+        $ret = self::$___registry[$key];
         foreach ($keys as $k) $ret = $ret[$k];
 
         return $ret;
