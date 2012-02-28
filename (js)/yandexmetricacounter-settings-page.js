@@ -51,24 +51,18 @@ jQuery(document).ready(function($){
         } else {
             var color_bottom = color_top;
         }
-        var img_url = size.filter(':checked').val() +
+        var bg_url = size.filter(':checked').val() +
             '_' + arrow.filter(':checked').val() +
             '_' + color_top + alpha_top.val() +
             '_' + color_bottom + alpha_top.val() +
             '_' + text.filter(':checked').val() +
             '_' + info.filter(':checked').val();
-        if (1 || typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
-            preview_sel.find('iframe').get(0).contentWindow.postMessage(img_url, 'http://wordefinery.com');
-        } else {
-            img_url = 'http://bs.yandex.ru/informer/' + yandexmetrica_site_id + '/' + img_url;
-            preview_sel.find('img').attr('src', img_url);
-        }
-    }
-
-    if (1 || typeof(yandexmetrica_site_id) == 'undefined' || !$.isNumeric(yandexmetrica_site_id)) {
-        preview_sel.html('<iframe width=88 height=36></iframe>');
-        preview_sel.find('iframe').attr('src', 'http://wordefinery.com/i/metrica.htm');
-        preview_sel.find('iframe').load(preview_f);
+        bg_url = 'http://bs.yandex.ru/informer/2/' + bg_url;
+        var img_url = size.filter(':checked').val() +
+            '_' + text.filter(':checked').val() +
+            '_' + info.filter(':checked').val();
+        img_url = image_base + img_url + '.png';
+        preview_sel.find('img').attr('src', img_url).css('background-image', 'url("' + bg_url + '")');
     }
 
     var size_sel = $('#wordefinery-yandexmetricacounter-settings').find('div.size');

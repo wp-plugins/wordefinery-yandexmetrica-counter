@@ -4,9 +4,7 @@ namespace wordefinery;
 
 ?>
 
-<?php if ($this->store->site_id) : ?>
-<script> var yandexmetrica_site_id = '<?php echo $this->store->site_id; ?>'; </script>
-<?php endif; ?>
+<script> var image_base = "<?php echo WP_PLUGIN_URL.'/'.$this->path; ?>/(img)/"; </script>
 
 <form method="post" action="options.php">
             <?php settings_fields($this->plugin_slug); ?>

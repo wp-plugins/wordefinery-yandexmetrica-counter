@@ -38,6 +38,10 @@ Displays Yandex.Metrica Counter
 
 == Changelog ==
 
+= 0.6.8 =
+* Fix preview issues
+* Fix widget output
+
 = 0.6.7 =
 * Fixed PHP 5.2 warnings
 
