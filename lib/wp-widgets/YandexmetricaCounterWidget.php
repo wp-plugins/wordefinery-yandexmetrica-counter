@@ -20,9 +20,9 @@ class YandexmetricaCounterWidget extends \WP_Widget {
         echo $before_widget;
         if ( !empty( $title ) ) { echo $before_title . $title . $after_title; }
         echo $this->plugin->Counter();
-        echo '<ul style="list-style:none;"><li>';
+        echo '<div class="textwidget">';
         echo $this->plugin->Informer(1);
-        echo '</li></ul>';
+        echo '</div>';
         echo $after_widget;
     }
 
