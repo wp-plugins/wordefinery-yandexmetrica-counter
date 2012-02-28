@@ -360,7 +360,8 @@ implements ArrayAccess, Iterator, Countable {
     }
 
     public static function bind($keys) {
-        if (!is_array($keys)) $keys = explode('/', $keys);
+        if (is_array($keys)) $keys = implode('/', $keys);
+        $keys = explode('/', $keys);
         foreach ($keys as $k=>$i) $keys[$k] = trim($i);
         $key = array_shift($keys);
 
